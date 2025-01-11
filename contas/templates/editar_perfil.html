@@ -1,0 +1,20 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Painel{% endblock %}
+
+{% block nav_perfil %}active_menu_link{% endblock %}
+
+{% block container %}
+    {% if user.profile_type == 'eps' %} 
+        {% include 'edit_profiles/edit_eps.html' %}
+    {% elif user.profile_type == 'sap' %} 
+        {% include 'edit_profiles/edit_sap.html' %}
+    {% elif user.profile_type == 'dspo' %}
+        {% include 'edit_profiles/edit_dspo.html' %}
+    {% elif user.profile_type == 'psp' %}
+        {% include 'edit_profiles/edit_psp.html' %}
+    {% elif user.profile_type == 'tecdsp' %}
+        {% include 'edit_profiles/edit_tecdsp.html' %}
+    {% endif %}
+{% endblock %}

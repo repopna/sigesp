@@ -1,0 +1,71 @@
+
+    <form class="form" method="post" enctype="multipart/form-data" style="width: 100%;">
+        {% csrf_token %}
+        <p class="form-title">Emissão de Carteiras PSP</p>
+        <div class="box line">
+            <div class="input-container">
+                <input placeholder="BI/NIF" type="text" name="bi" id="bi" required>
+            </div>
+            <div class="input-container">
+                <p>Foto Passe:</p>
+                <input type="file" name="foto" required>
+            </div>
+            <div class="input-container">
+                <p>Comprovativo de Pagamento:</p>
+                <input type="file" name="comprovativo_pagamento" required>
+            </div>
+        </div>
+        
+        <button class="submit" type="submit">
+            Enviar
+        </button>
+    </form>
+<div class="form2">
+    <div class="box line">
+        <div class="search-box">
+            <form method="get">
+                <div class="input-container">
+                    <input placeholder="Pesquisar" type="text" name="q" value="{{ query }}" id="bi">
+                </div>
+                <input class="submit" type="submit" value="Pesquisar">
+            </form>
+        </div>
+    </div>
+    <div class="box column">
+        <p class="form-title">Emissão de Carteira de PSP</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id #</th>
+                    <th>Nome</th>
+                    <th>Função</th>
+                    <th>Data de Registo</th>
+                    <th>Data de Emissão</th>
+                    <th>Data de Validade</th>
+                    <th>Foto</th>
+                    <th>Comprovativo de Pagamento</th>
+                    <th>Frente</th>
+                    <th>Verso</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for carteira in carteiras %}
+                <tr>
+                    <td>{{ carteira.id }}</td>
+                    <td>{{ carteira.nome }}</td>
+                    <td>{{ carteira.categoria }}</td>
+                    <td>{{ carteira.dt_registo }}</td>
+                    <td>{{ carteira.dt_emissao }}</td>
+                    <td>{{ carteira.dt_validade }}</td>
+                    <td><a href="{{ carteira.foto.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="{{ carteira.comprovativo_pagamento.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="{% url 'render_carteira_frente' carteira.id %}" class="frente-link" target="_blank"><i class="fa-solid fa-file"></a></td>
+                    <td><a href="{% url 'render_carteira_verso' carteira.id %}" class="verso-link" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

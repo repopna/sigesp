@@ -1,0 +1,63 @@
+<div class="form2" style="max-width: 290px;">
+    <div class="header"> 
+        <div class="image">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><g stroke-width="0" id="SVGRepo_bgCarrier"></g><g stroke-linejoin="round" stroke-linecap="round" id="SVGRepo_tracerCarrier"></g><g id="SVGRepo_iconCarrier"> <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" stroke="#000000" d="M20 7L9.00004 18L3.99994 13"></path> </g></svg>
+        </div> 
+        <div class="content">
+            <span class="title">Estado da LICENÇA</span> 
+            <p>{{ uuid_mascarado }}</p>
+            <p class="message">A sua licença expira em {{ dias_restantes }} dia(s), mantenha sempre a licença actualizada para poder fazer o uso do SIGESP.</p> 
+        </div>
+    </div> 
+</div>
+
+<style>
+    .image {
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        background-color: #e2feee;
+        flex-shrink: 0;
+        justify-content: center;
+        align-items: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 9999px;
+        animation: animate .6s linear alternate-reverse infinite;
+        transition: .6s ease;
+    }
+    .image svg {
+        color: #0afa2a;
+        width: 2rem;
+        height: 2rem;
+        }
+
+        .content {
+        margin-top: 0.75rem;
+        text-align: center;
+        }
+
+        .title {
+        color: #066e29;
+        font-size: 1rem;
+        font-weight: 600;
+        line-height: 1.5rem;
+        }
+
+        .message {
+        margin-top: 0.5rem;
+        color: #595b5f;
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+        }
+
+        @keyframes animate {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.09);
+            }
+        }
+</style>

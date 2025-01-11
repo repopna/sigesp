@@ -1,0 +1,59 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Multas Provinciais{% endblock %}
+
+{% block nav_mul_prov %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'tecdsp' %}
+    <div class="form2" style="width: 100%;">
+        <div class="box line">
+            <div class="search-box">
+                <form method="get">
+                    <div class="input-container">
+                        <input placeholder="Pesquisar" type="text" name="q" value="{{ q }}" id="mul">
+                    </div>
+                    <input class="submit" type="submit" value="Pesquisar">
+                </form>
+            </div>
+        </div>
+        <div class="box column">
+            <p class="form-title">Multas dos Técnicos Provinciais</p>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id #</th>
+                        <th>Multa</th>
+                        <th>Provincia</th>
+                        <th>NIP</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mul in muls %}
+                    <tr>
+                        <td>{{ mul.id }}</td>
+                        <td><a href="{{ mul.ficheiro.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td>{{ mul.provincia }}</td>
+                        <td>{{ mul.autor.username }}</td>
+                        <td>{{ mul.data_de_envio }}</td>
+                    </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5">Nenhum registo encontrado</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

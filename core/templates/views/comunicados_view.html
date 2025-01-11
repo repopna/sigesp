@@ -1,0 +1,18 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Comunicados{% endblock %}
+
+{% block nav_comunidados %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'tecdsp' %}
+    {% include 'modules/comunicados.html' %}
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+{% endblock %}
+

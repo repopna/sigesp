@@ -1,0 +1,17 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Solicitação de Carteira{% endblock %}
+
+{% block nav_sli %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'psp' %}
+    {% include 'modules/solicitacao_de_licenca.html' %}
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+{% endblock %}

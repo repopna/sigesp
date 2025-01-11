@@ -1,0 +1,78 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Arma{% endblock %}
+
+{% block nav_marmas %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% if user.profile_type == 'eps' or user.profile_type == 'sap' or user.profile_type == 'tecdsp' %}
+    <div class="form3">
+        <p class="form-title">Informações da Arma</p>
+        <div class="group-text">
+            <h3 class="text-title">Id:</h3>
+            <p class="p-text">{{ arma.id }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Número da Arma:</h3>
+            <p class="p-text">{{ arma.numero_arma }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Classificação:</h3>
+            <p class="p-text">{{ arma.get_classificacao_display }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Marca:</h3>
+            <p class="p-text">{{ arma.marca }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Origem:</h3>
+            <p class="p-text">{{ arma.origem }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Calibre:</h3>
+            <p class="p-text">{{ arma.calibre }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Número de Cano:</h3>
+            <p class="p-text">{{ arma.cano }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Tiros:</h3>
+            <p class="p-text">{{ arma.tiro }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Comprimento do Cano:</h3>
+            <p class="p-text">{{ arma.comprimento_cano }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Alma:</h3>
+            <p class="p-text">{{ arma.alma }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Percussao:</h3>
+            <p class="p-text">{{ arma.percussao }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Culatra:</h3>
+            <p class="p-text">{{ arma.culatra }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Cães:</h3>
+            <p class="p-text">{{ arma.get_caes_display }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Platinas:</h3>
+            <p class="p-text">{{ arma.get_platinas_display }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Data de Registo:</h3>
+            <p class="p-text">{{ arma.data_registro }}</p>
+        </div>
+    </div>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

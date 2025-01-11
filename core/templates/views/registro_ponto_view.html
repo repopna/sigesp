@@ -1,0 +1,57 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Prova de Actividade{% endblock %}
+
+{% block nav_prova_actividade %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'psp' %}
+    {% include 'modules/registro_ponto.html' %}
+{% elif user.profile_type == 'tecdsp' %}
+    <div class="form2">
+        <div class="box line">
+            <div class="search-box">
+                <form method="get">
+                    <div class="input-container">
+                        <input placeholder="Pesquisar" type="text" name="nif" value="{{ query }}" id="nif">
+                    </div>
+                    <input class="submit" type="submit" value="Pesquisar">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="form2" style="width: 100%;">
+        <div class="box column">
+            <p class="form-title">Registo de Actividade dos PSP</p>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>NIF </th>
+                        <th>Nome</th>
+                        <th>Última Prova de Actividade</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in ultimos_pontos %}
+                        <tr>
+                            {% if item.usuario.profile_type == 'psp' %}
+                            <td>{{ item.usuario.username }}</td>
+                            <td>{{ item.usuario.psp.nome }}</td>
+                            <td>{{ item.ultimo_ponto }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

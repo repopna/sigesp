@@ -1,0 +1,45 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Mapa de Pessoal{% endblock %}
+
+{% block nav_minha_carteira %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'psp' %}
+<div class="form">
+    <p class="form-title">Minha Carteira</p>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Frente</th>
+                <th>Verso</th>
+                <th>Situação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if carteira %}
+                <tr>
+                    <td></a>{{ carteira.id }}</td>
+                    <td><a href="{% url 'render_carteira_frente' carteira.id %}" class="frente-link" target="_blank"><i class="fa-solid fa-file"></a></td>
+                    <td><a href="{% url 'render_carteira_verso' carteira.id %}" class="verso-link" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="#"></a></td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">Você não possui uma carteira ou à sua carteira encontra-se expirada</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

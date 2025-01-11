@@ -1,0 +1,74 @@
+<div class="form2">
+    <div class="box column">
+        <p class="form-title">Emissão de Carteira de PSP</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id #</th>
+                    <th>Nome</th>
+                    <th>Função</th>
+                    <th>Sub Função</th>
+                    <th>Categoria</th>
+                    <th>Pedido</th>
+                    <th>Motivo</th>
+                    <th>Certificado de Formações</th>
+                    <th>Cópia do BI</th>
+                    <th>Registo Criminal</th>
+                    <th>C. Serviço Militar Obrigatório</th>
+                    <th>Curriculum Vitae</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sli in slis %}
+                <tr>
+                    <td>{{ sli.id }}</td>
+                    <td>{{ sli.autor.psp.nome }}</td>
+                    <td>{{ sli.autor.psp.get_funcao_display }}</td>
+                    <td>{{ sli.autor.psp.get_sub_funcao_display }}</td>
+                    <td>{{ sli.get_categoria_display }}</td>
+                    <td>{{ sli.get_pedido_display }}</td>
+                    <td>{{ sli.get_motivo_display }}</td>
+                    <td><a href="{{ sli.certificado.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="{{ sli.copia_bi.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="{{ sli.registro_criminal.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="{{ sli.comprovativo.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="{{ sli.curriculum_vitae.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="#" class="remove-link" style="color: red;" data-sli-id="{{ sli.id }}"><i class="fa-solid fa-square-xmark"></i></a></td>
+                    <td><a href="#" class="approve-link" style="color: green;" data-sli-id="{{ sli.id }}"><i class="fa-solid fa-square-check"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.remove-link').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var sliId = this.getAttribute('data-sli-id');
+                if (confirm('Tem certeza que deseja remover este cadastro?')) {
+                    fetch(`/api/rm_sli/${sliId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        },
+                        body: JSON.stringify({
+                            'sli_id': sliId
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Ocorreu um erro ao remover o cadastro.');
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

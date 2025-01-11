@@ -1,0 +1,48 @@
+<div class="form2">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="box column">
+            <p class="form-title">Mapa de Postos</p>
+            <div class="input-container">
+                <input type="file" name="ficheiro" required>
+            </div>
+            <input class="submit" type="submit" value="Enviar">
+            </p>
+        </div>
+    </form> 
+    <div class="box column">
+        <p class="form-title">Postos Registados</p>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th># Id </th>
+                    <th>Ficheiro</th>
+                    <th>Data do registo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for posto in postos %}
+                <tr>
+                    <td>{{ posto.id }}</td>
+                    <td><a href="{{ posto.ficheiro.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td>{{ posto.data_registro }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="form2" style="height: 235px;">
+    <form method="post" enctype="multipart/form-data" action="{% url 'servicos' %}">
+        {% csrf_token %}
+        <input type="hidden" name="tipo_pedido" value="Cadastro de Posto">
+        <p class="form-title">Cadastrar Posto</p>
+        <div class="input-container">
+            <input type="file" name="ficheiro" required>
+        </div>
+        <button class="submit" type="submit">
+            Cadastrar Posto
+        </button>
+    </form>
+</div>

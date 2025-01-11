@@ -1,0 +1,76 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Pedidos Recebidos{% endblock %}
+
+{% block nav_pedidos_rec %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'tecdsp' %}
+    <div class="form2">
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="box column">
+                <p class="form-title">Actualizar Pedido</p>
+                <div class="box column">
+                    <div class="input-container">
+                        <input type="text" placeholder="ID do Pedido" name="id">
+                    </div>
+                    <div class="input-container">
+                        <select name="status_pedido" id="status_pedido">
+                            <option value="em_processamento">Em Processamento</option>
+                            <option value="recusado">Recusado</option>
+                            <option value="aceite">Aceite</option>
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <p>Arquivo Resposta</p>
+                        <input type="file" name="arquivo_resposta">
+                    </div>
+                    <div class="input-container">
+                        <textarea name="resposta" id="resposta" maxlength="500" placeholder="Observação (Opcional)" rows="4" cols="50"></textarea>
+                    </div>
+                </div>
+                <input class="submit" type="submit" value="Actualizar">
+                </p>
+            </div>
+        </form>
+    </div>
+    <div class="form" style="width: 100%">
+        <p class="form-title">Pedidos Recebidos</p>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id #</th>
+                    <th>Entidade</th>
+                    <th>Pedido</th>
+                    <th>Arquivo Recebido</th>
+                    <th>Status</th>
+                    <th>Data</th>
+                    <th>Actualizado por:</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                <tr>
+                    <td>{{ pedido.id }}</td>
+                    <td>{{ pedido.entidade.username }}</td>
+                    <td>{{ pedido.tipo_pedido }}</td>
+                    <td><a href="{{ pedido.arquivo_enviado.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td>{{ pedido.get_status_pedido_display }}</td>
+                    <td>{{ pedido.data_pedido }}</td>
+                    <td>{{ pedido.by }}</td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+{% endblock %}

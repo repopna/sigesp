@@ -1,0 +1,96 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Mapa de Pessoal{% endblock %}
+
+{% block nav_mpessoal_adm %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'tecdsp' and user.tecnicodispo.seccao == 'chefe_dep' or user.profile_type == 'tecdsp' and user.tecnicodispo.seccao == 'director' %}
+    <div class="form2">
+        <div class="box line">
+            <div class="search-box">
+                <form method="get">
+                    <div class="input-container">
+                        <input placeholder="Pesquisar" type="text" name="q" value="{{ query }}" id="bi">
+                    </div>
+                    <input class="submit" type="submit" value="Pesquisar">
+                </form>
+            </div>
+        </div>
+        <div class="box column">
+            <p class="form-title">Mapa de Pessoal</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th># Id </th>
+                        <th>Nome</th>
+                        <th>Empresa</th>
+                        <th>Sexo</th>
+                        <th>Estado Civil</th>
+                        <th>Número do BI</th>
+                        <th>Função</th>
+                        <th>Data de Nascimento</th>
+                        <th>Tempo de Serviço</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pessoa in pessoal %}
+                        <tr>
+                            <td>{{ pessoa.id }}</td>
+                            <td>{{ pessoa.nome }}</td>
+                            <td>{{ pessoa.entidade }}</td>
+                            <td>{{ pessoa.get_sexo_display }}</td>
+                            <td>{{ pessoa.get_estado_civil_display }}</td>
+                            <td>{{ pessoa.numero_bi }}</td>
+                            <td>{{ pessoa.funcao }}</td>
+                            <td>{{ pessoa.data_nascimento }}</td>
+                            <td>{{ pessoa.tempo_servico }}</td>
+                            <td><a href="#" class="remove-link" style="color: red;" data-id="{{ pessoa.id }}"><i class="fa-solid fa-square-xmark"></i></a></td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="10">Nenhum registo encontrado</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.remove-link').forEach(function(link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    var Id = this.getAttribute('data-id');
+                    if (confirm('Tem certeza que deseja remover este cadastro?')) {
+                        fetch(`/api/rm_pessoal/${Id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: JSON.stringify({
+                                'Id': Id
+                            })
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                location.reload();
+                            } else {
+                                alert('Ocorreu um erro ao remover o cadastro.');
+                            }
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

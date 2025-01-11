@@ -1,0 +1,249 @@
+<div class="box-container">
+    <div class="box column">
+        <div class="input-container">
+            <select name="perfil" id="perfil" onchange="showForm()">
+                <option value="">Perfil</option>
+                <option value="eps">Empresa Privada de Segurança</option>
+                <option value="centro">Centro de Formação</option>
+                <option value="sap">Sistema de Auto Proteção</option>
+                <option value="psp">Profissional de Segurança Privada</option>
+                <option value="dspo">DSPO/CMDO PROVINCIAL</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="form2 val eps">
+    <div class="box column">
+        <p class="form-title">Validar Usuários | EPS</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome da Instituição</th>
+                    <th>NIF</th>
+                    <th>Alvará Comercial</th>
+                    <th>Certificado de Registo Estático</th>
+                    <th>Atestado da Sociedade Comercial</th>
+                    <th>Cróquis de Localização da Sede da Empresa</th>
+                    <th>Certificado de Registo Comercial</th>
+                    <th>Comprovatico de Existência de Instalação</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for eps in epss %}
+                <tr>
+                    {% if eps.alvara_comercial %}
+                        <td>{{ eps.nome }}</td>
+                        <td>{{ eps.user.username }}</td>
+                        <td><a href="{{ eps.alvara_comercial.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ eps.certificado_registro.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ eps.atestado_sociedade.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ eps.croquis_localizacao.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ eps.certificado_registro2.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ eps.comprovativo_existência.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="#" class="approve-link" style="color: green;" data-id="{{ eps.user.id }}"><i class="fa-solid fa-square-check"></i></a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="form2 val sap">
+    <div class="box column">
+        <p class="form-title">Validar Usuários | SAP</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome da Instituição</th>
+                    <th>NIF</th>
+                    <th>Alvará Comercial</th>
+                    <th>Certificado de Registo Estático</th>
+                    <th>Atestado da Sociedade Comercial</th>
+                    <th>Cróquis de Localização da Sede da Empresa</th>
+                    <th>Certificado de Registo Comercial</th>
+                    <th>Comprovatico de Existência de Instalação</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sap in saps %}
+                <tr>
+                    {% if sap.alvara_comercial %}
+                        <td>{{ sap.nome }}</td>
+                        <td>{{ sap.user.username }}</td>
+                        <td><a href="{{ sap.alvara_comercial.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ sap.certificado_registro.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ sap.atestado_sociedade.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ sap.croquis_localizacao.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ sap.certificado_registro2.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ sap.comprovativo_existência.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="#" class="approve-link" style="color: green;" data-id="{{ sap.user.id }}"><i class="fa-solid fa-square-check"></i></a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="form2 val centro">
+    <div class="box column">
+        <p class="form-title">Validar Usuários | CENTRO</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome da Instituição</th>
+                    <th>NIF</th>
+                    <th>Alvará Comercial</th>
+                    <th>Certificado de Registo Estático</th>
+                    <th>Atestado da Sociedade Comercial</th>
+                    <th>Cróquis de Localização da Sede da Empresa</th>
+                    <th>Certificado de Registo Comercial</th>
+                    <th>Comprovatico de Existência de Instalação</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for centro in centros %}
+                <tr>
+                    {% if centro.alvara_comercial %}
+                        <td>{{ centro.nome }}</td>
+                        <td>{{ centro.user.username }}</td>
+                        <td><a href="{{ centro.alvara_comercial.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ centro.certificado_registro.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ centro.atestado_sociedade.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ centro.croquis_localizacao.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ centro.certificado_registro2.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="{{ centro.comprovativo_existência.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                        <td><a href="#" class="approve-link" style="color: green;" data-id="{{ centro.user.id }}"><i class="fa-solid fa-square-check"></i></a></td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="form2 val psp">
+    <div class="box column">
+        <p class="form-title">Validar Usuários | PSP</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>NIF</th>
+                    <th>Função</th>
+                    <th>Sub Função</th>
+                    <th>Estado Civil</th>
+                    <th>Agregado Familiar</th>
+                    <th>Declaração de Serviço</th>
+                    <th>Foto Passe</th>
+                    <th>Documento de Identificação</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for psp in psps %}
+                <tr>
+                    <td>{{ psp.nome }}</td>
+                    <td>{{ psp.user.username }}</td>
+                    <td>{{ psp.get_funcao_display }}</td>
+                    <td>{{ psp.get_sub_funcao_display }}</td>
+                    <td>{{ psp.get_estado_civil_display }}</td>
+                    <td><a href="{{ psp.agregado_familiar.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="{{ psp.declaracao_servico.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="{{ psp.foto_passe.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="{{ psp.documento_id_file.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="#" class="approve-link" style="color: green;" data-id="{{ psp.user.id }}"><i class="fa-solid fa-square-check"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="form2 val dspo">
+    <div class="box column">
+        <p class="form-title">Validar Usuários | CMDO PROVINCIAL</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>NIP</th>
+                    <th>Comando Provincial</th>
+                    <th>Função</th>
+                    <th>Foto Passe</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dspo in dspos %}
+                <tr>
+                    <td>{{ dspo.nome }}</td>
+                    <td>{{ dspo.user.username }}</td>
+                    <td>{{ dspo.comando }}</td>
+                    <td>{{ dspo.funcao }}</td>
+                    <td><a href="{{ dspo.foto_passe.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td><a href="#" class="approve-link" style="color: green;" data-id="{{ dspo.user.id }}"><i class="fa-solid fa-square-check"></i></a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+    function showForm() {
+        var select = document.getElementById("perfil");
+        var epsForm = document.querySelector(".val.eps");
+        var sapForm = document.querySelector(".val.sap");
+        var pspForm= document.querySelector(".val.psp");
+        var centroForm = document.querySelector(".val.centro");
+        var dspoForm= document.querySelector(".val.dspo");
+
+        centroForm.style.display = "none";
+        epsForm.style.display = "none";
+        sapForm.style.display = "none";
+        pspForm.style.display = "none";
+        dspoForm.style.display = "none";
+
+        if (select.value === "eps") {
+            epsForm.style.display = "block";
+        } else if (select.value === "sap") {
+            sapForm.style.display = "block";
+        } else if (select.value === "psp") {
+            pspForm.style.display = "block";
+        } else if (select.value === "dspo") {
+            dspoForm.style.display = "block";
+        } else if(select.value === "centro") {
+            centroForm.style.display = "block";
+        }
+        
+    }   
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+
+
+        document.querySelectorAll('.approve-link').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                var sliId = this.getAttribute('data-id');
+                if (confirm('Tem certeza que deseja aprovar este usuário?')) {
+                    fetch(`/api/atualizar-is-verified/${sliId}`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}'
+                        }
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            location.reload();
+                        } else {
+                            alert('Ocorreu um erro ao aprovar o usuário.');
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>

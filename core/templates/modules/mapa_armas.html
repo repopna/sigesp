@@ -1,0 +1,112 @@
+<div class="form2">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="mapa" value="armas">
+        <div class="box column">
+            <p class="form-title">Mapa de Armas | Cadastrar Arma</p>
+            <div class="box line">
+                <div class="input-container">
+                    <input placeholder="Número da Arma" type="text" name="numero_arma" id="numero" required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Calibre" type="text" name="calibre" id="calibre" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Marca" type="text" name="marca" id="marca" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Origem" type="text" name="origem" id="origem" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Cano" type="text" name="cano" id="cano" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Tiro" type="text" name="tiro" id="tiro" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Comprimento do Cano" type="text" name="comprimento_cano" id="comprimento_cano" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Alma" type="text" name="alma" id="alma" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Percussão" type="text" name="percussao" id="percussao" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Culatra" type="text" name="culatra" id="culatra" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Cães" type="text" name="caes" id="caes" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Platinas" type="text" name="platinas" id="platinas" readonly required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Classificacao" type="text" name="classificacao" id="classificacao" readonly required>
+                </div>
+            </div>
+            <input class="submit" type="submit" value="Cadastrar Arma">
+            </p>
+        </div>
+    </form> 
+    <div class="box column">
+        <p class="form-title">Armas Registadas</p>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>N/A #</th>
+                    <th>Marca</th>
+                    <th>Origem</th>
+                    <th>Classificação</th>
+                    <th>Calibre</th>
+                    <th>Data do Registo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for arma in armas %}
+                <tr>
+                    <td><a href="{% url 'arma' arma.id %}">{{ arma.numero_arma }}</a></td>
+                    <td><a href="{% url 'arma' arma.id %}">{{ arma.marca }}</a></td>
+                    <td><a href="{% url 'arma' arma.id %}">{{ arma.origem }}</a></td>
+                    <td><a href="{% url 'arma' arma.id %}">{{ arma.get_classificacao_display }}</a></td>
+                    <td><a href="{% url 'arma' arma.id %}">{{ arma.calibre }}</a></td>
+                    <td><a href="{% url 'arma' arma.id %}">{{ arma.data_registro }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#numero').on('blur', function() {
+            var numero = $(this).val();
+            if (numero) {
+                $.ajax({
+                    url: 'https://sigae.kirene.ao/api/manifesto/' + numero + '/',
+                    method: 'GET',
+                    success: function(data) {
+                        $('#calibre').val(data.calibre);
+                        $('#marca').val(data.marca);
+                        $('#origem').val(data.origem);
+                        $('#tiro').val(data.tiro);
+                        $('#cano').val(data.cano);
+                        $('#alma').val(data.alma);
+                        $('#comprimento_cano').val(data.comprimento_cano);
+                        $('#percussao').val(data.percussao);
+                        $('#culatra').val(data.culatra);
+                        $('#caes').val(data.caes);
+                        $('#platinas').val(data.platinas);
+                        $('#classificacao').val(data.classificacao);
+                        
+                    },
+                    error: function() {
+                        alert('Esta arma não está cadastrada no Departamento de Armas e Explosivos.');
+                    }
+                });
+            }
+        });
+    });
+</script>

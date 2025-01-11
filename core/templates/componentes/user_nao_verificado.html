@@ -1,0 +1,30 @@
+{% if user.profile_type == 'psp' %}
+<form class="form" style="width: fit-content;" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="form" value="verify">
+    <p class="form-title">Verificação de Conta</p>
+    <p class="signup-link">
+        A sua conta ainda não está verificada para poder fazer o uso dos serviços do SIGESP, a verificação leva
+        de 3-7 dias, caso passe do tempo pré visto você pode solicitar uma verificação clicando no botão abaixo
+        . Após isso, iremos verificar e notificá-lo se foi aprovado, fique sempre atento ao
+        seu email ou em <strong><a href="{% url 'notificacoes' %}">Notificações</a></strong>.
+    </p>
+    <button class="submit" type="submit">
+        Solicitiar Verificação
+    </button>
+</form>
+{% endif %}
+
+{% if user.profile_type == 'eps' or user.profile_type == 'sap' or user.profile_type == 'centro' %}
+<div class="form" style="width: fit-content;" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="form" value="verify">
+    <p class="form-title">Verificação de Conta</p>
+    <p class="signup-link">
+        A sua conta ainda não está verificada para poder fazer o uso dos serviços do SIGESP, você precisa
+        submeter alguns Documentos para avaliação em <strong><a href="{% url 'avaliacao' %}">Avaliação e Validação dos Documentos</a></strong>
+        . Após isso, iremos verificar e notificá-lo se foi aprovado, fique sempre atento ao
+        seu email ou em <strong><a href="{% url 'notificacoes' %}">Notificações</a></strong>.
+    </p>
+</div>
+{% endif %}

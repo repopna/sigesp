@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Consulta de Empresas{% endblock %}
+
+{% block content %}
+
+<div class="box">
+    <div class="consulta">
+        <form method="POST">
+            {% csrf_token %}
+            <p class="form-title">Consultar Empresa</p>
+            <div class="input-container">
+                <input placeholder="NIF da Empresa" type="text" name="nif" required>
+            </div>
+            <input class="submit" type="submit" value="Consultar">
+        </form>
+    </div>
+    <div class="resultado">
+        {% if encontrado %}
+            <p class="form-title">Resultado da Pesquisa:</p>
+            <br>
+            {% if encontrado == 1 %}
+                <div class="group-text">
+                    <h3 class="text-title">Nome da Empresa: </h3>
+                    {% if user.profile_type == 'eps' %}
+                        <p class="p-text">{{ empresa.eps.nome }}</p>
+                    {% elif user.profile_type == 'centro' %} 
+                        <p class="p-text">{{ empresa.centro.nome }}</p>
+                    {% elif user.profile_type == 'sap' %} 
+                        <p class="p-text">{{ empresa.sap.nome }}</p>
+                    {% endif %} 
+                    
+                </div>
+                <div class="group-text">
+                    <h3 class="text-title">NIF: </h3>
+                    <p class="p-text">{{ empresa.username }}</p>
+                </div>
+                <div class="group-text">
+                    <h3 class="text-title">Tipo de Empresa: </h3>
+                    <p class="p-text">{{ empresa.get_profile_type_display }}</p>
+                </div>
+                <div class="group-text">
+                    <h3 class="text-title">Empresa verificada: </h3>
+                    {% if empresa.is_verified == False %}
+                        <p class="p-text"> <i class="fa-solid fa-circle-xmark"> </i> </p>
+                    {% else %}
+                        <p class="p-text"> <i class="fa-solid fa-circle-check"> </i> </p>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p class="p-text">Esta empresa não está cadastrada no SIGESP</p>
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+<style>
+    .box{
+        height: 100%;
+        padding: 40px;
+    }
+    .consulta{
+        display: flex;
+    }
+    .resultado{
+        display: flex;
+        flex-direction: column;
+        padding: 40px 0;
+        gap: 10px;
+    }
+    .resultado .group-text{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 5px;
+    }
+    .resultado .group-text h3{
+        color: #001c55;
+    }
+</style>
+{% endblock %}

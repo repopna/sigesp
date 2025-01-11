@@ -1,0 +1,5 @@
+{% if user.profile_type == 'psp' %}
+    <div class="sidebar__link {% block nav_sli %}{% endblock %}">
+        <a href="{% url 'sli' %}"><i class="fa-solid fa-id-card"></i> Solicitação de Licença</a>
+    </div>
+{% endif %}

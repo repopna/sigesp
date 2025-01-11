@@ -1,0 +1,59 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Relatório{% endblock %}
+
+{% block nav_rel %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'eps' or user.profile_type == 'sap' or user.profile_type == 'centro' %}
+    <div class="form" style="width: 100%;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Pedido</td>
+                    <th>Data do Pedido</td>
+                    <th>Status do Pedido</td>
+                    {% if rel.arquivo_enviado %}
+                        <th>Documento Enviado</td>
+                    {% endif %}
+                    {% if rel.arquivo_resposta %}
+                        <th>Documento Recebido</td>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                <td>{{ rel.id}}</td>
+                <td>{{ rel.tipo_rel }}</td>
+                <td>{{ rel.data_rel }}</td>
+                <td>{{ rel.get_status_rel_display }}</td>
+                {% if rel.arquivo_enviado %}
+                    <td><a href="{{ rel.arquivo_enviado.url }}" target="_blank"><i class="fa-solid fa-file"></i> Documento</a></td>
+                {% endif %}
+                {% if rel.arquivo_resposta %}
+                    <td><a href="{{ rel.arquivo_resposta.url }}" target="_blank"><i class="fa-solid fa-file"></i> Documento</a></td>
+                {% endif %}
+            </tbody>
+        </table>
+        <br>
+        {% if rel.resposta %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Observação</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td>{{ rel.resposta }}</td>
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+{% endblock %}

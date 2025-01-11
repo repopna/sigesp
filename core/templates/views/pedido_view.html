@@ -1,0 +1,59 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Pedido{% endblock %}
+
+{% block nav_pedidos %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'eps' or user.profile_type == 'sap' or user.profile_type == 'centro' %}
+    <div class="form" style="width: 100%;">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Pedido</td>
+                    <th>Data do Pedido</td>
+                    <th>Status do Pedido</td>
+                    {% if pedido.arquivo_enviado %}
+                        <th>Documento Enviado</td>
+                    {% endif %}
+                    {% if pedido.arquivo_resposta %}
+                        <th>Documento Recebido</td>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                <td>{{ pedido.id}}</td>
+                <td>{{ pedido.tipo_pedido }}</td>
+                <td>{{ pedido.data_pedido }}</td>
+                <td>{{ pedido.get_status_pedido_display }}</td>
+                {% if pedido.arquivo_enviado %}
+                    <td><a href="{{ pedido.arquivo_enviado.url }}" target="_blank"><i class="fa-solid fa-file"></i> Documento</a></td>
+                {% endif %}
+                {% if pedido.arquivo_resposta %}
+                    <td><a href="{{ pedido.arquivo_resposta.url }}" target="_blank"><i class="fa-solid fa-file"></i> Documento</a></td>
+                {% endif %}
+            </tbody>
+        </table>
+        <br>
+        {% if pedido.resposta %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Observação</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <td>{{ pedido.resposta }}</td>
+                </tbody>
+            </table>
+        {% endif %}
+    </div>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+{% endblock %}

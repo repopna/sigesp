@@ -1,0 +1,452 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Criar Conta{% endblock %}
+
+{% block content %}
+
+<div class="box-container">
+    {% include 'componentes/toast.html' %}
+    <div class="box column">
+        <p class="form-title">Criar Conta</p>
+        <p class="signup-link">Selecione o tipo de cadastro:</p>
+        <div class="input-container">
+            <select name="perfil" id="perfil" onchange="showForm()">
+                <option value="">-</option>
+                <option value="eps">Empresa Privada de Segurança</option>
+                <option value="centro">Centro de Formação</option>
+                <option value="sap">Sistema de Auto Proteção</option>
+                <option value="psp">Profissional de Segurança Privada</option>
+            </select>
+        </div>
+        
+
+        
+        <!-- -->
+        <form class="sign-form eps" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="perfil" value="eps">
+            <div class="box column">
+                <p class="form-title">Dados da Empresa</p>
+                <div class="box line">
+                    <div class="input-container">
+                        <input placeholder="NIF" type="text" name="NIF" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Nome da Instituição" type="text" name="nome" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Email" type="email" name="email" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Telefone" type="text" name="telefone" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Endereço" type="text" name="morada" required>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" name="password1" id="password1" placeholder="Senha" required>
+                    </div>
+                </div>
+                <div class="box column">
+                    <p class="form-title">Dados do Sócio / Gerente</p>
+                    <div class="box line">
+                        <div class="input-container">
+                            <input placeholder="Nome Completo" type="text" name="sg_nome" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Função" type="text" name="sg_funcao" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="NIF / BI" type="text" name="sg_id" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Endereço" type="text" name="sg_morada" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Email" type="email" name="sg_email" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Telefone" type="text" name="sg_telefone" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="box column">
+                    <p class="form-title">Anexos</p>
+                    <div class="box line">
+                        <div class="input-container">
+                            <p>Cópia da Licença:</p>
+                            <input type="file" name="copia_licenca" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Certificado da Empresa Actualizado:</p>
+                            <input type="file" name="certidao" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Cópia do BI do Socio / Gerente:</p>
+                            <input type="file" name="copia_bi_sg" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Fotografia Passe do Sócio / Gerente:</p>
+                            <input type="file" name="foto_passe_sg" required>
+                        </div>
+                    </div>
+                </div>
+                <input class="submit" type="submit" value="Criar Conta">
+                <p class="signup-link">
+                    Já tem uma conta?
+                    <a href="{% url 'login' %}">Entrar</a>
+                </p>
+            </div>
+        </form>
+        <!-- -->
+        
+        <!-- -->
+        <form class="sign-form sap" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="perfil" value="sap">
+            <div class="box column">
+                <p class="form-title">Dados da Empresa</p>
+                <div class="box line">
+                    <div class="input-container">
+                        <input placeholder="NIF" type="text" name="NIF" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Nome da Instituição" type="text" name="nome" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Email" type="email" name="email" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Telefone" type="text" name="telefone" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Endereço" type="text" name="morada" required>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" name="password1" id="password1" placeholder="Senha" required>
+                    </div>
+                </div>
+                <div class="box column">
+                    <p class="form-title">Dados do Sócio / Gerente</p>
+                    <div class="box line">
+                        <div class="input-container">
+                            <input placeholder="Nome Completo" type="text" name="sg_nome" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Função" type="text" name="sg_funcao" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="NIF / BI" type="text" name="sg_id" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Endereço" type="text" name="sg_morada" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Email" type="email" name="sg_email" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Telefone" type="text" name="sg_telefone" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="box column">
+                    <p class="form-title">Anexos</p>
+                    <div class="box line">
+                        <div class="input-container">
+                            <p>Cópia da Licença:</p>
+                            <input type="file" name="copia_licenca" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Certificado da Empresa Actualizado:</p>
+                            <input type="file" name="certidao" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Cópia do BI do Socio / Gerente:</p>
+                            <input type="file" name="copia_bi_sg" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Fotografia Passe do Sócio / Gerente:</p>
+                            <input type="file" name="foto_passe_sg" required>
+                        </div>
+                    </div>
+                </div>
+                <input class="submit" type="submit" value="Criar Conta">
+                <p class="signup-link">
+                    Já tem uma conta?
+                    <a href="{% url 'login' %}">Entrar</a>
+                </p>
+            </div>
+        </form>
+        <!-- -->
+        <form class="sign-form centro" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="perfil" value="centro">
+            <div class="box column">
+                <p class="form-title">Dados da Empresa</p>
+                <div class="box line">
+                    <div class="input-container">
+                        <input placeholder="NIF" type="text" name="NIF" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Nome da Instituição" type="text" name="nome" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Email" type="email" name="email" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Telefone" type="text" name="telefone" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Morada" type="text" name="morada" required>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" name="password1" id="password1" placeholder="Senha" required>
+                    </div>
+                </div>
+                <div class="box column">
+                    <p class="form-title">Dados do Sócio / Gerente</p>
+                    <div class="box line">
+                        <div class="input-container">
+                            <input placeholder="Nome Completo" type="text" name="sg_nome" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Função" type="text" name="sg_funcao" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="NIF / BI" type="text" name="sg_id" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Morada" type="text" name="sg_morada" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Email" type="email" name="sg_email" required>
+                        </div>
+                        <div class="input-container">
+                            <input placeholder="Telefone" type="text" name="sg_telefone" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="box column">
+                    <p class="form-title">Anexos</p>
+                    <div class="box line">
+                        <div class="input-container">
+                            <p>Cópia da Licença:</p>
+                            <input type="file" name="copia_licenca" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Certificado da Empresa Actualizado:</p>
+                            <input type="file" name="certidao" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Cópia do BI do Socio / Gerente:</p>
+                            <input type="file" name="copia_bi_sg" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Fotografia Passe do Sócio / Gerente:</p>
+                            <input type="file" name="foto_passe_sg" required>
+                        </div>
+                    </div>
+                </div>
+                <input class="submit" type="submit" value="Criar Conta">
+                <p class="signup-link">
+                    Já tem uma conta?
+                    <a href="{% url 'login' %}">Entrar</a>
+                </p>
+            </div>
+        </form>
+        <!-- -->
+        <form class="sign-form psp" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="hidden" name="perfil" value="psp">
+            <div class="box column">
+                <p class="form-title">Dados do Profissional de Segurança Privada</p>
+                <div class="box line">
+                    <div class="input-container">
+                        <input placeholder="Nome Completo" type="text" name="nome" required>
+                    </div>
+                    <div class="input-container">
+                        <select name="estado_civil" id="estado_civil">
+                            <option value="">Estado Civíl</option>
+                            <option value="solteiro">Solteiro(a)</option>
+                            <option value="casado">Casado(a)</option>
+                            <option value="divorciado">Divorciado(a)</option>
+                            <option value="viuvo">Viúvo(a)</option>
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <select name="funcao" id="funcao">
+                            <option value="">Função</option>
+                            <option value="DS">Director de Segurança</option>
+                            <option value="CS">Coordenador de Segurança</option>
+                            <option value="SS">Supervisor de Segurança</option>
+                            <option value="R">Rondante</option>
+                            <option value="V">Vigilante</option>
+                            <option value="A">Armeiro</option>
+                            <option value="GA">Gestor do Armeiro</option>
+
+                            <option value="GME">Gestor de Meios e Equipamentos</option>
+                            <option value="AME">Armazenista de Meios e Equipamentos</option>
+                            <option value="MAD">Mecânico de Armas e Defesas</option>
+
+                            <option value="FSP">Formador de Segurança Privada</option>
+                            <option value="IT">Instrutor de Tiro</option>
+                            <option value="CSG">Consultor de Segurança</option>
+                        </select>
+                    </div>
+                    <div class="input-container sub-vigilante">
+                        <select name="sub_vigilante" id="sub_vigilante">
+                            <option value="">Subclasse Vigilante</option>
+                            <option value="vig_principal">Vigilante Principal</option>
+                            <option value="vig_porteiro">Vig. Porteiro</option>
+                            <option value="vig_transporte">Vig. Transporte de Valores - VTV</option>
+                            <option value="vig_proteccao">Vig. de Protecção e Acompanhamento Pessoal - VPAP</option>
+                            <option value="vig_fiscal">Vig. Fiscal de Transportes Públicos- VFTP</option>
+                            <option value="assistente_desp">Assistente de Recinto Desportivo - ARD</option>
+                            <option value="assistente_esp">Assistente de Recinto de Espetáculo- ARE</option>
+                            <option value="operador_cctv">Operador de CCTV</option>
+                            <option value="operador_sistema">Operador de sistema de Alarme</option>
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <select name="documento" id="documento">
+                            <option value="">Documento</option>
+                            <option value="bi">Bilhete de Identidade</option>
+                            <option value="passaporte">Passaporte</option>
+                            <option value="c_residente">Cartão de Residente</option>
+                        </select>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Número do documento" type="text" name="documento_id" required>
+                    </div>
+                    <div class="input-container checkbox">
+                        <label for="vinculo">Vínculo Empresarial</label>
+                        <input type="checkbox" name="vinculo" id="vinculo_psp" onclick="adsVinculoPsp()">
+                    </div>
+                    <div class="input-container add" id="div_empresa_psp">
+                        <input placeholder="Nome da Empresa" type="text" name="nome_empresa">
+                    </div>
+                    <div class="input-container add" id="div_funcao_psp">
+                        <input placeholder="Função na Empresa" type="text" name="funcao_empresa">
+                    </div>
+                    <div class="input-container checkbox">
+                        <label for="prof_independente">Profissional Independente</label>
+                        <input type="checkbox" name="prof_independente" id="prof_independente">
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Email" type="email" name="email" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Telefone" type="text" name="telefone" required>
+                    </div>
+                    <div class="input-container">
+                        <input placeholder="Endereço" type="text" name="morada" required>
+                    </div>
+                    <div class="input-container">
+                        <input type="password" name="password1" id="password1" placeholder="Senha" required>
+                    </div>
+                </div>
+                <div class="box column">
+                    <p class="form-title">Anexos</p>
+                    <div class="box line">
+                        <div class="input-container">
+                            <p>Foto do Documento:</p>
+                            <input type="file" name="documento_id_file" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Agregado Familiar:</p>
+                            <input type="file" name="agregado_familiar" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Declaração de Serviço:</p>
+                            <input type="file" name="declaracao_servico" required>
+                        </div>
+                        <div class="input-container">
+                            <p>Fotografia tipo Passe:</p>
+                            <input type="file" name="foto_passe" required>
+                        </div>
+                    </div>
+                </div>
+                <input class="submit" type="submit" value="Criar Conta">
+                <p class="signup-link">
+                    Já tem uma conta?
+                    <a href="{% url 'login' %}">Entrar</a>
+                </p>
+            </div>
+        </form>
+        <!-- -->
+    </div>
+</div>
+
+<script>
+    function showForm() {
+        var select = document.getElementById("perfil");
+        var epsForm = document.querySelector(".sign-form.eps");
+        var sapForm = document.querySelector(".sign-form.sap");
+        var pspForm= document.querySelector(".sign-form.psp");
+        var centroForm = document.querySelector(".sign-form.centro");
+
+        centroForm.style.display = "none";
+        epsForm.style.display = "none";
+        sapForm.style.display = "none";
+        pspForm.style.display = "none";
+
+        if (select.value === "eps") {
+            epsForm.style.display = "block";
+        } else if (select.value === "sap") {
+            sapForm.style.display = "block";
+        } else if (select.value === "psp") {
+            pspForm.style.display = "block";
+        }else if(select.value === "centro") {
+            centroForm.style.display = "block";
+        }
+        
+    }   
+</script>
+<script>
+    function adsVinculo() {
+        var vinculo = document.querySelector("#vinculo");
+        var divEmpresa = document.querySelector("#div_empresa");
+        var divFuncao = document.querySelector("#div_funcao");
+
+        if (vinculo.checked) {
+            divEmpresa.style.display = "block";
+            divFuncao.style.display = "block";
+        } else {
+            divEmpresa.style.display = "none";
+            divFuncao.style.display = "none";
+        }
+    }
+    function adsVinculoPsp() {
+        var vinculo = document.querySelector("#vinculo_psp");
+        var divEmpresa = document.querySelector("#div_empresa_psp");
+        var divFuncao = document.querySelector("#div_funcao_psp");
+
+        if (vinculo.checked) {
+            divEmpresa.style.display = "block";
+            divFuncao.style.display = "block";
+        } else {
+            divEmpresa.style.display = "none";
+            divFuncao.style.display = "none";
+        }
+    }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var funcaoSelect = document.getElementById("funcao");
+        var subVigilanteDiv = document.querySelector(".sub-vigilante");
+
+        funcaoSelect.addEventListener("change", function() {
+            if (funcaoSelect.value === "V") {
+                subVigilanteDiv.style.display = "block";
+            } else {
+                subVigilanteDiv.style.display = "none";
+            }
+        });
+    });
+</script>
+<script src="{% static 'js/toast.js' %}"></script>
+
+<script src="{% static 'js/provincias.js' %}" ></script>
+<script src="{% static 'js/nacionalidades.js' %}" ></script>
+{% endblock %}

@@ -1,0 +1,29 @@
+<div class="form" style="width: 100%; flex-direction: column;">
+    <div class="notify-markall">
+        <p class="form-title">Notificações</p>
+        <a href="{% url 'ler_tudo' %}">Marcas todas como lidas</a>
+    </div>
+    {% for notificacao in notificacoes %}
+    <div class="notify-card {% if notificacao.unread %}unread{% endif %}">
+        
+        <div class="icon">
+            <img src="{% static 'img/bell.png' %}" alt="">
+        </div>
+        <div class="text">
+            <p class="content">{{ notificacao.verb }}</p>
+            <div class="notify-markall">
+                <p class="time">{{ notificacao.timestamp }} •</p>
+                {% if notificacao.unread %}
+                    <form method="POST" action="{% url 'mark_as_read' notificacao.id %}">
+                        {% csrf_token %}
+                        <button type="submit">Marcar como lida</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Nenhuma notificação</p>
+    {% endfor %}
+
+</div>

@@ -1,0 +1,18 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Lista de Envolvidos em Crimes{% endblock %}
+
+{% block nav_li_env_cri %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'tecdsp' %}
+    {% include 'modules/envolvidos_crimes.html' %}
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

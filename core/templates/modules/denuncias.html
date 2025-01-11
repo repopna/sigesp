@@ -1,0 +1,52 @@
+<div class="form2">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="box column">
+            <p class="form-title">Comunicação</p>
+            <div class="box column">
+                <div class="input-container">
+                    <select name="tipo" id="tipo">
+                        <option value="">-</option>
+                        <option value="geral">Mensagem</option>
+                        <option value="pessoal">Denúncia de Pessoal</option>
+                    </select>
+                </div>
+                <div class="input-container" id="acusado-container" style="display: none;">
+                    <select name="acusado" id="acusado">
+                        <option value="">Acusado</option>
+                        {% for pessoa in pessoal %}
+                            <option value="{{ pessoa.nome }}">{{ pessoa.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-container">
+                    <textarea name="descricao" id="descricao" maxlength="500" placeholder="Descrição" rows="4" cols="50"></textarea>
+                </div>
+            </div>
+            <input class="submit" type="submit" value="Enviar Denúncia">
+            </p>
+        </div>
+    </form>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var tipoSelect = document.getElementById('tipo');
+        var acusadoContainer = document.getElementById('acusado-container');
+
+        // Função para mostrar ou ocultar o campo acusado com base na seleção do tipo de denúncia
+        function toggleAcusado() {
+            if (tipoSelect.value === 'pessoal') {
+                acusadoContainer.style.display = 'block';
+            } else {
+                acusadoContainer.style.display = 'none';
+            }
+        }
+
+        // Adicionar um ouvinte de eventos para detectar mudanças no tipo de denúncia
+        tipoSelect.addEventListener('change', toggleAcusado);
+
+        // Chamada inicial da função para garantir que o campo acusado seja exibido ou ocultado conforme necessário
+        toggleAcusado();
+    });
+</script>

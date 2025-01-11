@@ -1,0 +1,27 @@
+
+{% extends 'base.html' %}
+
+{% block title %}Chave Token{% endblock %}
+
+{% block content %}
+<div class="login" style="width: 100%;">
+    <form class="form" method="post">
+        {% csrf_token %}
+        
+        <p class="form-title">Insira o TOKEN para acessar o sistema</p>
+        <div class="input-container">
+            <div class="input-container">
+                <input placeholder="Chave Token" type="text" name="token" required>
+            </div>
+        </div>
+        <ul class="error">
+            <li class="text-red">{{ form.non_field_errors }}</li>
+            <li class="text-red">{{ form.token.errors }}</li>
+        </ul>
+        <button class="submit" type="submit">
+            Validar Token
+        </button>
+        <a href="{% url 'logout' %}" class="submit" style="text-align: center;">Log Out</a>
+    </form>
+</div>
+{% endblock %}

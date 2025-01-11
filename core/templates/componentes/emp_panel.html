@@ -1,0 +1,35 @@
+<div class="main__cards">
+    <div class="card">
+        <i class="fa-solid fa-paper-plane"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">Pedidos Enviados</p>
+            <span class="font-bold text-title">{{ pedidos_enviados }}</span>
+        </div>
+    </div>
+    
+    <div class="card">
+        <i class="fa-solid fa-check"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">Pedidos Aceites</p>
+            <span class="font-bold text-title">{{ pedidos_aceites }}</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <i class="fa-solid fa-x"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">Pedidos Rejeitados</p>
+            <span class="font-bold text-title">{{ pedidos_rejeitados }}</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <i class="fa-solid fa-spinner"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">Pedidos em Processamento</p>
+            <span class="font-bold text-title">{{ pedidos_em_processamento }}</span>
+        </div>
+    </div>
+</div>
+
+{% include 'componentes/licenca.html' %}

@@ -1,0 +1,67 @@
+<div class="form3">
+    <p class="form-title">Minhas Informações</p>
+    <div class="group-text">
+        <h3 class="text-title">Nome:</h3>
+        <p class="p-text">{{ user.psp.nome }}</p>
+    </div>
+    <div class="group-text">
+        <h3 class="text-title">Email:</h3>
+        <p class="p-text">{{ user.email }}</p>
+    </div>
+    <div class="group-text">
+        <h3 class="text-title">Telefone:</h3>
+        <p class="p-text">{{ user.telefone }}</p>
+    </div>
+    <div class="group-text">
+        <h3 class="text-title">Função:</h3>
+        <p class="p-text">{{ user.psp.get_funcao_display }}</p>
+    </div>
+    {% if user.psp.sub_funcao %}
+        <div class="group-text">
+            <h3 class="text-title">Função:</h3>
+            <p class="p-text">{{ user.psp.get_funcao_display }}</p>
+        </div>
+    {% endif %}
+    <div class="group-text">
+        <h3 class="text-title">Documento:</h3>
+        <p class="p-text">{{ user.psp.get_documento_display }}</p>
+    </div>
+    <div class="group-text">
+        <h3 class="text-title">Número do Documento:</h3>
+        <p class="p-text">{{ user.psp.documento_id }}</p>
+    </div>
+    <div class="group-text">
+        <h3 class="text-title">Morada:</h3>
+        <p class="p-text">{{ user.psp.morada }}</p>
+    </div>
+    {% if user.psp.vinculo == False %}
+    <div class="group-text">
+        <h3 class="text-title">Vinculo Empresarial</h3>
+        <p class="p-text"><i class="fa-solid fa-circle-xmark"></i></p>
+    </div>
+    {% else %}
+    <div class="group-text">
+        <h3 class="text-title">Vinculo Empresarial</h3>
+        <p class="p-text"><i class="fa-solid fa-circle-check"></i></p>
+    </div>
+    <div class="group-text">
+        <h3 class="text-title">Nome da Empresa</h3>
+        <p class="p-text">{{ user.psp.nome_empresa }}</p>
+    </div>
+    <div class="group-text">
+        <h3 class="text-title">Função na Empresa</h3>
+        <p class="p-text">{{ user.psp.funcao_empresa }}</p>
+    </div>
+    {% endif %}
+    {% if user.psp.prof_independente == False %}
+    <div class="group-text">
+        <h3 class="text-title">Profissional Independente</h3>
+        <p class="p-text"><i class="fa-solid fa-circle-xmark"></i></p>
+    </div>
+    {% else %}
+    <div class="group-text">
+        <h3 class="text-title">Profissional Independente</h3>
+        <p class="p-text"><i class="fa-solid fa-circle-check"></i></p>
+    </div>
+    {% endif %}
+</div>

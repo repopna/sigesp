@@ -1,0 +1,18 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Mapa de Postos{% endblock %}
+
+{% block nav_postos %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'eps' or user.profile_type == 'sap' %}
+    {% include 'modules/mapa_postos.html' %}
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

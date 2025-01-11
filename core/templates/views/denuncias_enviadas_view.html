@@ -1,0 +1,113 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Denúncias Enviadas{% endblock %}
+
+{% block nav_denuncias_env %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'tecdsp' %}
+    <div class="form2">
+        <div class="box column">
+            <p class="form-title">Comunicações Enviadas</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id #</th>
+                        <th>Empresa</th>
+                        <th>Acusado</th>
+                        <th>Descrição</th>
+                        <th>Data da Denúncia</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for denuncia in denuncias %}
+                    <tr>
+                        <td>{{ denuncia.id }}</td>
+                        <td>{{ denuncia.autor.eps.nome }}</td>
+                        <td>{{ denuncia.acusado }}</td>
+                        <td>{{ denuncia.descricao | truncatechars:70 }}</td>
+                        <td>{{ denuncia.data_da_denuncia }}</td>
+                        <td>
+                            <a href="#" class="ver-tudo" 
+                                data-id="{{ denuncia.id }}" 
+                                data-empresa="{{ denuncia.autor.eps.nome }}" 
+                                data-acusado="{{ denuncia.acusado }}" 
+                                data-descricao="{{ denuncia.descricao }}" 
+                                data-data="{{ denuncia.data_da_denuncia }}" 
+                                style="text-decoration:underline; font-size: 16px; font-style: italic;">Ver tudo
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <dialog id="modalDetalhesDenuncia">
+        <h2>Detalhes da Denúncia</h2>
+        <div class="box line">
+            <div class="group-text">
+                <h3 class="text-title">ID:</h3>
+                <p class="p-text" id="detalhesId"></p>
+            </div>
+            <div class="group-text">
+                <h3 class="text-title">Empresa:</h3>
+                <p class="p-text" id="detalhesEmpresa"></p>
+            </div>
+            <div class="group-text">
+                <h3 class="text-title">Acusado:</h3>
+                <p class="p-text" id="detalhesAcusado"></p>
+            </div>
+            <div class="group-text">
+                <h3 class="text-title">Data da Denúncia:</h3>
+                <p class="p-text" id="detalhesData"></p>
+            </div>   
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Descrição:</h3>
+            <p class="p-text" id="detalhesDescricao"></p>
+        </div>
+        <button class="submit" id="fecharModal">Fechar</button>
+    </dialog>
+    <script>
+        document.getElementById('fecharModal').addEventListener('click', function() {
+            dialog.close();
+        });
+    
+        var dialogs = document.querySelectorAll('dialog');
+        dialogs.forEach(function(dialog) {
+            dialog.addEventListener('click', function() {
+                dialog.close();
+            });
+        });
+    
+        var links = document.querySelectorAll('.ver-tudo');
+        links.forEach(function(link) {
+            link.addEventListener('click', function() {
+                var id = this.getAttribute('data-id');
+                var empresa = this.getAttribute('data-empresa');
+                var acusado = this.getAttribute('data-acusado');
+                var descricao = this.getAttribute('data-descricao');
+                var data = this.getAttribute('data-data');
+    
+                document.getElementById('detalhesId').textContent = id;
+                document.getElementById('detalhesEmpresa').textContent = empresa;
+                document.getElementById('detalhesAcusado').textContent = acusado;
+                document.getElementById('detalhesDescricao').textContent = descricao;
+                document.getElementById('detalhesData').textContent = data;
+    
+                var dialog = document.getElementById('modalDetalhesDenuncia');
+                dialog.showModal();
+            });
+        });
+    </script>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

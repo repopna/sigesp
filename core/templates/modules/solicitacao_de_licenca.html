@@ -1,0 +1,102 @@
+{% load static %}
+<div class="form2">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="box column">
+            <p class="form-title">Solicitação de Carteira</p>
+            <div class="box line" style="align-items: end;">
+                <div class="input-container">
+                    <select name="categoria" id="categoria">
+                        <option value="">Categoria a requerer</option>
+                        <option value="director_s">Director de Segurança</option>
+                        <option value="coordenador_s">Coordenador de Segurança</option>
+                        <option value="supervisor_s">Supervisor de Segurança</option>
+                        <option value="rondante">Rondante</option>
+                        <option value="vig_principal">Vigilante Principal</option>
+                        <option value="vig_porteiro">Vig. Porteiro</option>
+                        <option value="vig_transporte">Vig. Transporte de Valores - VTV</option>
+                        <option value="vig_proteccao">Vig. de Protecção e Acompanhamento Pessoal - VPAP</option>
+                        <option value="vig_fiscal">Vig. Fiscal de Transportes Públicos- VFTP</option>
+                        <option value="assistente_desp">Assistente de Recinto Desportivo - ARD</option>
+                        <option value="assistente_esp">Assistente de Recinto de Espetáculo- ARE</option>
+                        <option value="operador_cctv">Operador de CCTV</option>
+                        <option value="operador_sistema">Operador de Sistema de Alarme</option>
+                        <option value="armeiro">Armeiro</option>
+                        <option value="gestor_a">Gestor do Armeiro</option>
+                        <option value="formador">Formador de Segurança Privada</option>
+                        <option value="instrutor">Instrutor de Tiro</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <select name="pedido" id="pedido" onchange="toggleMotivo()">
+                        <option value="">Pedido</option>
+                        <option value="novo">Novo</option>
+                        <option value="renovacao">Renovação</option>
+                        <option value="via2">2ª Via</option>
+                    </select>
+                </div>
+                <div class="input-container" id="motivo-container" style="display: none;">
+                    <select name="motivo" id="motivo">
+                        <option value="">Motivo</option>
+                        <option value="furto">Furto ou Roubo</option>
+                        <option value="extravio">Extravio</option>
+                        <option value="danificado">Danificado</option>
+                        <option value="alteracao">Alteração da Categoria</option>
+                    </select>
+                </div>
+            </div>
+            <div class="box column">
+                <p class="form-title">Anexos</p>
+                <div class="box line">
+                    <div class="input-container">
+                        <p>Curriculum Vitae:</p>
+                        <input type="file" name="curriculum_vitae" required>
+                    </div>
+                    <div class="input-container">
+                        <p>Certificado de Formações Concluídas:</p>
+                        <input type="file" name="certificado" required>
+                    </div>
+                    <div class="input-container">
+                        <p>Cópia do Bilhete:</p>
+                        <input type="file" name="copia_bi" required>
+                    </div>
+                    <div class="input-container">
+                        <p>Registo Criminal:</p>
+                        <input type="file" name="registro_criminal" required>
+                    </div>
+                    <div class="input-container">
+                        <p>Comprovativo de Serviço Militar Obrigatório:</p>
+                        <input type="file" name="comprovativo" required>
+                    </div>
+                </div>
+            </div>
+            <input class="submit" type="submit" value="Solicitar">
+        </div>
+    </form>
+</div>
+<div class="cardsprev">
+    <img src="{% static 'img/frente.png' %}" alt="">
+    <img src="{% static 'img/verso.png' %}" alt="">
+</div>
+<style>
+    .cardsprev{
+        display: flex;
+        justify-content: space-between
+    }
+
+    .cardsprev img{
+        width: 550px;
+        height: auto;
+    }
+</style>
+<script>
+    function toggleMotivo() {
+        var motivoContainer = document.getElementById("motivo-container");
+        var pedidoSelect = document.getElementById("pedido");
+        if (pedidoSelect.value === "via2") {
+            motivoContainer.style.display = "block";
+        } else {
+            motivoContainer.style.display = "none";
+        }
+    }
+</script>

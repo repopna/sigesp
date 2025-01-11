@@ -1,0 +1,77 @@
+<div class="form2">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="box column">
+            <p class="form-title">Mapa de Pessoal | Cadastrar Pessoal</p>
+            <div class="box line" style="align-items: end;">
+                <div class="input-container">
+                    <input placeholder="Nome" type="text" name="nome" required>
+                </div>
+                <div class="input-container">
+                    <select name="sexo" id="sexo">
+                        <option value="">Sexo</option>
+                        <option value="M">Masculino</option>
+                        <option value="F">Femenino</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <select name="estado_civil" id="estado_civil">
+                        <option value="">Estado Civíl</option>
+                        <option value="solteiro">Solteiro(a)</option>
+                        <option value="casado">Casado(a)</option>
+                        <option value="divorciado">Divorciado(a)</option>
+                        <option value="viuvo">Viúvo(a)</option>
+                    </select>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Número do BI" type="text" name="numero_bi" required>
+                </div>
+                <div class="input-container">
+                    <input placeholder="Função" type="text" name="funcao" required>
+                </div>
+                <div class="input-container">
+                    <p>Data de Nascimento:</p>
+                    <input placeholder="Data de Nascimento" type="date" name="data_nascimento" required>
+                </div>
+                <div class="input-container">
+                    <p>Data da Contratação:</p>
+                    <input placeholder="Tempo de Serviço" type="date" name="tempo_servico" required>
+                </div>
+            </div>
+            <input class="submit" type="submit" value="Cadastrar Pessoal">
+            </p>
+        </div>
+    </form> 
+    <div class="box column">
+        <p class="form-title">Pessoal Registado</p>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th># Id </th>
+                    <th>Nome</th>
+                    <th>Sexo</th>
+                    <th>Estado Civil</th>
+                    <th>Número do BI</th>
+                    <th>Função</th>
+                    <th>Data de Nascimento</th>
+                    <th>Tempo de Serviço</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pessoa in pessoal %}
+                <tr>
+                    <td>{{ pessoa.id }}</td>
+                    <td>{{ pessoa.nome }}</td>
+                    <td>{{ pessoa.get_sexo_display }}</td>
+                    <td>{{ pessoa.get_estado_civil_display }}</td>
+                    <td>{{ pessoa.numero_bi }}</td>
+                    <td>{{ pessoa.funcao }}</td>
+                    <td>{{ pessoa.data_nascimento }}</td>
+                    <td>{{ pessoa.tempo_servico }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

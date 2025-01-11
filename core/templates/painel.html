@@ -1,0 +1,57 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Painel{% endblock %}
+
+{% block nav_painel %}active_menu_link{% endblock %}
+
+{% block container %}
+
+<div class="main__title">
+    <img src="{% static 'img/avatar.png' %}" alt="logo" />
+    <div class="main__greeting">
+        {% if user.profile_type == 'eps' %}
+            <h1>Olá, {{ user.eps.nome }}</h1>
+            <h2>{{ user.get_profile_type_display }}</h2>
+        {% endif %}
+        {% if user.profile_type == 'centro' %}
+            <h1>Olá, {{ user.centro.nome }}</h1>
+            <h2>{{ user.get_profile_type_display }}</h2>
+        {% endif %}
+        {% if user.profile_type == 'sap' %}
+            <h1>Olá, {{ user.sap.nome }}</h1>
+            <h2>{{ user.get_profile_type_display }}</h2>
+        {% endif %}
+        {% if user.profile_type == 'dspo' %}
+            <h1>Olá, {{ user.dspo.nome }}</h1>
+            <h2>{{ user.get_profile_type_display }}</h2>
+        {% endif %}
+        {% if user.profile_type == 'tecdsp' %}
+            <h1>Olá, {{ user.tecnicodispo.nome }}</h1>
+            <h2>{{ user.tecnicodispo.get_seccao_display }}</h2>
+        {% endif %}
+        {% if user.profile_type == 'psp' %}
+            <h1>Olá, {{ user.psp.nome }}</h1>
+            <h2>{{ user.get_profile_type_display }}</h2>
+        {% endif %}
+        <p>Bem Vindo ao painel do SIGESP</p>
+    </div>
+</div>
+<div style="width: 100%;">
+    {% include 'componentes/toast.html' %}
+</div>
+
+{% if user.is_verified == False and user.profile_type %}
+    {% include 'componentes/user_nao_verificado.html' %}
+{% elif user.profile_type == 'eps' or user.profile_type == 'sap' or user.profile_type == 'centro' %}
+    {% include 'componentes/emp_panel.html' %}
+{% elif user.profile_type == 'tecdsp' %}
+    {% include 'componentes/adm_panel.html' %}
+{% elif user.profile_type == 'psp' %}
+    {% include 'componentes/licenca.html' %}
+{% elif user.profile_type == 'dspo' %}
+{% endif %}
+
+
+
+{% endblock %}

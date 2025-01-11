@@ -1,0 +1,44 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Perfil{% endblock %}
+
+{% block nav_perfil %}active_menu_link{% endblock %}
+
+{% block container %}
+
+    {% if user.profile_type == 'eps' %} 
+        {% include 'info_profiles/info_eps.html' %}
+    {% elif user.profile_type == 'sap' %} 
+        {% include 'info_profiles/info_sap.html' %}
+    {% elif user.profile_type == 'dspo' %}
+        {% include 'info_profiles/info_dspo.html' %}
+    {% elif user.profile_type == 'psp' %}
+        {% include 'info_profiles/info_psp.html' %}
+    {% elif user.profile_type == 'tecdsp' %}
+        {% include 'info_profiles/info_tecdsp.html' %}
+    {% elif user.profile_type == 'centro' %}
+        {% include 'info_profiles/info_centro.html' %}
+    {% endif %}
+    <form class="form3" method="POST">
+        {% csrf_token %}
+        {% include 'componentes/toast.html' %}
+        <br>
+        <p class="form-title">Trocar Palavra-Passe</p>
+        <br>
+        <div class="input-container">
+            <input placeholder="Palavra-Passe Antiga" type="password" name="old_password" id="id_old_password">
+        </div>
+        <div class="input-container">
+            <input placeholder="Nova Palavra-Passe" type="password" name="new_password1" id="id_old_password1">
+        </div>
+        <div class="input-container">
+            <input placeholder="Confirmação da Nova Palavra-Passe" type="password" name="new_password2"
+                id="id_old_password2">
+        </div>
+        <br>
+        <button class="submit" type="submit">
+            Trocar Palavra-Passe
+        </button>
+    </form>
+{% endblock %}

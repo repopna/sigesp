@@ -1,0 +1,63 @@
+<div class="form2">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <input type="hidden" name="mapa" value="armas">
+        <div class="box column">
+            <p class="form-title">Profissionais Envolvidos em Crimes</p>
+            <div class="box line">
+                <div class="input-container">
+                    <input placeholder="BI" type="text" name="bi" id="bi" required>
+                </div>
+                <div class="input-container" id="esp-container">
+                    <select name="assunto" id="assunto">
+                        <option value="">Crime</option>
+                        <option value="roubo">Roubo</option>
+                        <option value="furto">Furto</option>
+                        <option value="assalto">Assalto</option>
+                    </select>
+                </div>
+            </div>
+            <input class="submit" type="submit" value="Cadastrar">
+            </p>
+        </div>
+    </form> 
+    <div class="box column">
+        <p class="form-title">Lista de Profissionais Envolvidos em Crimes</p>
+        <br>
+        <div class="box line">
+            <div class="search-box">
+                <form method="get">
+                    <div class="input-container">
+                        <input placeholder="Pesquisar Profissional" type="text" name="q" value="{{ query }}" id="pnid">
+                    </div>
+                    <input class="submit" type="submit" value="Pesquisar">
+                </form>
+            </div>
+        </div>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id #</th>
+                    <th>Nome</th>
+                    <th>BI</th>
+                    <th>Crime</th>
+                    <th>Publicado por</th>
+                    <th>Data do Registo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for acusado in acusados %}
+                <tr>
+                    <td>{{ acusado.id }}</a></td>
+                    <td>{{ acusado.acusado.psp.nome }}</a></td>
+                    <td>{{ acusado.acusado.username }}</a></td>
+                    <td>{{ acusado.get_assunto_display }}</a></td>
+                    <td>{{ acusado.autor }}</a></td>
+                    <td>{{ acusado.data }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

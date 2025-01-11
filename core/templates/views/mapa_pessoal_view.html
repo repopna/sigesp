@@ -1,0 +1,18 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Mapa de Pessoal{% endblock %}
+
+{% block nav_mpessoal %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'eps' or user.profile_type == 'sap' or user.profile_type == 'centro' %}
+    {% include 'modules/mapa_pessoal.html' %}
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

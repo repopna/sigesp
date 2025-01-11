@@ -1,0 +1,22 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Enviar Comunicados{% endblock %}
+
+{% block nav_env_comunicados %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.tecnicodispo.seccao == 'chefe_dep' or user.tecnicodispo.seccao == 'director' %}
+    {% include 'modules/emissao_carteiras.html' %}
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+<style>
+    .main__container{
+        flex-direction: column;
+    }
+</style>
+{% endblock %}

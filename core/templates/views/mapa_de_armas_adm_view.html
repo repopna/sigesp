@@ -1,0 +1,63 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Mapa de Armas{% endblock %}
+
+{% block nav_marmas_adm %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'tecdsp' %}
+    <div class="form2" style="width: 100%;">
+        <div class="box line">
+            <div class="search-box">
+                <form method="get">
+                    <div class="input-container">
+                        <input placeholder="Pesquisar" type="text" name="arma" value="{{ query }}" id="arma">
+                    </div>
+                    <input class="submit" type="submit" value="Pesquisar">
+                </form>
+            </div>
+        </div>
+        <div class="box column">
+            <p class="form-title">Armas Registadas</p>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Id #</th>
+                        <th>Empresa</th>
+                        <th>Tipo</th>
+                        <th>Modelo</th>
+                        <th>Numero de Arma</th>
+                        <th>Marca</th>
+                        <th>Data de Registo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for arma in armas %}
+                    <tr>
+                        <td><a href="{% url 'arma' arma.id %}">{{ arma.id }}</a></td>
+                        <td><a href="{% url 'arma' arma.id %}">{{ arma.entidade }}</a></td>
+                        <td><a href="{% url 'arma' arma.id %}">{{ arma.tipo }}</a></td>
+                        <td><a href="{% url 'arma' arma.id %}">{{ arma.modelo }}</a></td>
+                        <td><a href="{% url 'arma' arma.id %}">{{ arma.numero_arma }}</a></td>
+                        <td><a href="{% url 'arma' arma.id %}">{{ arma.marca }}</a></td>
+                        <td><a href="{% url 'arma' arma.id %}">{{ arma.data_registro }}</a></td>
+                    </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="7">Nenhum registo encontrado</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

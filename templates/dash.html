@@ -1,0 +1,186 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-pt">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="{% static 'img/logo-pna.png' %}" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/dash.css' %}">
+    {% block head %}{% endblock%}
+    <title>{% block title %}{% endblock %} - SIGESP</title>
+</head>
+
+<body id="body">
+    <div class="container">
+        <nav class="navbar">
+            <div class="nav_icon" onclick="toggleSidebar()">
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </div>
+            <div class="navbar__left">
+                {% block sub_servicos %}{% endblock %}
+                
+
+            </div>
+            <div class="navbar__right">
+                <i class="fa-regular fa-clock" id="icon__clock"></i>
+                <div id="clock"></div>
+                <script src="{% static 'js/clock.js' %}"></script>
+            </div>
+        </nav>
+
+        <main>
+            <div class="main__container">
+                {% block container %}
+                {% endblock %}
+            </div>
+        </main>
+
+        <div id="sidebar">
+            <div class="sidebar__title">
+                <div class="sidebar__img">
+                    <img src="{% static 'img/logo-pna.png' %}" alt="logo" />
+                    <h1>SIGESP</h1>
+                </div>
+                <i onclick="closeSidebar()" class="fa fa-times" id="sidebarIcon" aria-hidden="true"></i>
+            </div>
+            <div class="sidebar__menu">
+                <div class="sidebar__link {% block nav_painel %}{% endblock %}">
+                    <i class="fa fa-home"></i>
+                    <a href="{% url 'index' %}">Painel</a>
+                </div>
+                
+                <h2>MÓDULOS</h2>
+                {% if user.is_verified %}
+                    {% if user.profile_type == 'eps' or user.profile_type == 'sap' or user.profile_type == 'centro' %}
+                        <div class="sidebar__link {% block nav_servicos %}{% endblock %}">
+                            <a href="{% url 'servicos' %}"><i class="fa-solid fa-file-word"></i></i> Serviços</a>
+                        </div>
+                        <div class="sidebar__link {% block nav_mpessoal %}{% endblock %}">
+                            <a href="{% url 'mapa_pessoal' %}"><i class="fa-solid fa-people-group"></i> Mapa de Pessoal</a>
+                        </div>
+                        <div class="sidebar__link {% block nav_marmas %}{% endblock %}">
+                            <a href="{% url 'mapa_armas' %}"><i class="fa-solid fa-gun"></i> Mapa de Armas</a>
+                        </div>
+                        {% if user.profile_type == 'eps' or user.profile_type == 'sap' %}
+                            <div class="sidebar__link {% block nav_postos %}{% endblock %}">
+                                <a href="{% url 'mapa_postos' %}"><i class="fa-solid fa-map-location-dot"></i> Mapa de Postos</a>
+                            </div>
+                        {% endif %}
+                        <div class="sidebar__link {% block nav_rel %}{% endblock %}">
+                            <a href="{% url 'relatorios' %}"><i class="fa-solid fa-file-import"></i> Relatórios</a>
+                        </div>
+                        {% if user.profile_type == 'eps' or user.profile_type == 'centro' %}
+                            <div class="sidebar__link {% block nav_denuncias %}{% endblock %}">
+                                <a href="{% url 'denuncias' %}"><i class="fa-solid fa-bullhorn"></i> Comunicação DSP</a>
+                            </div>
+                        {% endif %}
+                        {% if user.profile_type == 'centro' %}
+                            <div class="sidebar__link {% block nav_formacao %}{% endblock %}">
+                                <a href="{% url 'formacao' %}"><i class="fa-solid fa-people-group"></i> Formação</a>
+                            </div>
+                        {% endif %}
+                        <div class="sidebar__link {% block nav_pedidos %}{% endblock %}">
+                            <a href="{% url 'pedidos' %}"><i class="fa-solid fa-paper-plane"></i> Pedidos</a>
+                        </div>
+                    {% endif %}
+                    {% if user.profile_type == 'dspo' %}
+                        <div class="sidebar__link {% block nav_emirel %}{% endblock %}">
+                            <a href="{% url 'emissao_relatorios' %}"><i class="fa-solid fa-file-word"></i> Emissão de Relatórios</a>
+                        </div>
+                        <div class="sidebar__link {% block nav_emimul %}{% endblock %}">
+                            <a href="{% url 'emissao_multas' %}"><i class="fa-solid fa-percent"></i> Emissão de Multas</a>
+                        </div>
+                    {% endif %}
+                    {% if user.profile_type == 'tecdsp' %}
+                        <div class="sidebar__link {% block nav_pedidos_rec %}{% endblock %}">
+                            <a href="{% url 'pedidos_recebidos' %}"><i class="fa-solid fa-paper-plane"></i> Pedidos Recebidos</a>
+                        </div>
+                        <div class="sidebar__link {% block nav_denuncias_env %}{% endblock %}">
+                            <a href="{% url 'denuncias_enviadas' %}"><i class="fa-solid fa-bullhorn"></i> Comunicação DSP</a>
+                        </div>
+                        <div class="sidebar__link {% block nav_rel_prov %}{% endblock %}">
+                            <a href="{% url 'relatorios_provinciais' %}"><i class="fa-solid fa-file-word"></i> Relatórios Provinciais</a>
+                        </div>
+                        <div class="sidebar__link {% block nav_mul_prov %}{% endblock %}">
+                            <a href="{% url 'multas_provinciais' %}"><i class="fa-solid fa-percent"></i> Multas Provinciais</a>
+                        </div>
+                        {% if user.tecnicodispo.seccao == 'chefe_dep' or user.tecnicodispo.seccao == 'director' %}
+                            <div class="sidebar__link {% block nav_mpessoal_adm %}{% endblock %}">
+                                <a href="{% url 'mapa_pessoal_adm' %}"><i class="fa-solid fa-people-group"></i> Mapa de Pessoal</a>
+                            </div>
+                            <div class="sidebar__link {% block nav_marmas_adm %}{% endblock %}">
+                                <a href="{% url 'mapa_armas_adm' %}"><i class="fa-solid fa-gun"></i> Mapa de Armas</a>
+                            </div>
+                            <div class="sidebar__link {% block nav_val %}{% endblock %}">
+                                <a href="{% url 'validar_usuarios' %}"><i class="fa-solid fa-user-check"></i> Validar Usuários</a>
+                            </div>
+                            <div class="sidebar__link {% block nav_slie %}{% endblock %}">
+                                <a href="{% url 'slie' %}"><i class="fa-solid fa-id-card"></i> Solicitações de Carteiras Enviadas</a>
+                            </div>
+                            <div class="sidebar__link {% block nav_emissao_carteiras %}{% endblock %}">
+                                <a href="{% url 'emissao_carteiras' %}"><i class="fa-solid fa-id-card"></i> Emissão de Carteiras</a>
+                            </div>
+                        {% endif %}
+                        <div class="sidebar__link {% block nav_env_comunicados %}{% endblock %}">
+                            <a href="{% url 'enviar_comunidados' %}"><i class="fa-solid fa-bullhorn"></i> Enviar Comunicados</a>
+                        </div>
+                        <div class="sidebar__link {% block nav_li_env_cri %}{% endblock %}">
+                            <a href="{% url 'envolvidos_crimes' %}"><i class="fa-solid fa-table-list"></i> Lista de Envolvidos em Crimes</a>
+                        </div>
+                    {% endif %}
+                    {% if user.profile_type == 'psp' %}
+                        <div class="sidebar__link {% block nav_sli %}{% endblock %}">
+                            <a href="{% url 'sli' %}"><i class="fa-solid fa-id-card"></i> Solicitação de Carteira Profissional</a>
+                        </div>
+                        <div class="sidebar__link {% block nav_minha_carteira %}{% endblock %}">
+                            <a href="{% url 'minha_carteira' %}"><i class="fa-solid fa-id-card"></i> Minha Carteira</a>
+                        </div>
+                    {% endif %}
+                    {% if user.profile_type == 'psp' or user.profile_type == 'tecdsp' %}
+                        <div class="sidebar__link {% block nav_prova_actividade %}{% endblock %}">
+                            <a href="{% url 'prova_actividade' %}"><i class="fa-solid fa-thumbtack"></i> Prova de Actividade</a>
+                        </div>
+                    {% endif %}
+                {% else %}
+                    {% if user.profile_type == 'eps' or user.profile_type == 'sap' or user.profile_type == 'centro' %}
+                        <div class="sidebar__link {% block nav_av %}{% endblock %}">
+                            <a href="{% url 'avaliacao' %}"><i class="fa-solid fa-clipboard-check"></i> Avaliação e Validação dos Documentos</a>
+                        </div>
+                    {% endif %}
+                {% endif %}
+                
+
+                <h2>INFORMAÇÕES</h2>
+                <div class="sidebar__link {% block nav_notificacoes %}{% endblock %}">
+                    <a href="{% url 'notificacoes' %}"><i class="fa-solid fa-bell"></i> Notificações ({% if notificacoes_n_lidas %}{{notificacoes_n_lidas}}{% else %}0{% endif %})</a>
+                </div>
+                <div class="sidebar__link">
+                    <a href="https://pna.kirenecorp.ao/documentos-de-apoio/"><i class="fa-solid fa-file"></i> Documentos Úteis</a>
+                </div>
+
+                <h2>DEFINIÇÕES</h2>
+                <div class="sidebar__link {% block nav_perfil %}{% endblock %}">
+                    <a href="{% url 'perfil' %}"><i class="fa-solid fa-address-card"></i> Minhas Informações</a>
+                </div>
+                <div class="sidebar__logout">
+                    <a href="{% url 'logout' %}"><i class="fa fa-power-off"></i> Log out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'js/toast.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script>
+        window.onload = function() {
+            updateClock();
+        };
+    </script>
+</body>
+
+</html>

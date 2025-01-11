@@ -1,0 +1,34 @@
+<form class="form" method="post" enctype="multipart/form-data" style="width: 100%;">
+    {% csrf_token %}
+    <p class="form-title">Avaliação e Validação dos Documentos</p>
+    <div class="box line">
+        <div class="input-container">
+            <p>Alvará Comercial:</p>
+            <input type="file" name="alvara_comercial" required>
+        </div>
+        <div class="input-container">
+            <p>Certificado de Registo Estático:</p>
+            <input type="file" name="certificado_registro" required>
+        </div>
+        <div class="input-container">
+            <p>Atestado da Sociedade Comercial:</p>
+            <input type="file" name="atestado_sociedade" required>
+        </div>
+        <div class="input-container">
+            <p>Cróquis de Localização da Sede da Empresa:</p>
+            <input type="file" name="croquis_localizacao" required>
+        </div>
+        <div class="input-container">
+            <p>Certificado de Registo Comercial:</p>
+            <input type="file" name="certificado_registro2" required>
+        </div>
+        <div class="input-container">
+            <p>Comprovatico de Existência de Instalação:</p>
+            <input type="file" name="comprovativo_existência" required>
+        </div>
+    </div>
+    
+    <button class="submit" type="submit">
+        Enviar
+    </button>
+</form>

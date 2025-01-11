@@ -1,0 +1,50 @@
+<form class="form2" method="post">
+    {% csrf_token %}
+    <p class="form-title">Enviar Comunicados</p>
+    <div class="box line">
+        <div class="input-container">
+            <select name="tipo" id="tipo">
+                <option value="">Tipo de Comunicado</option>
+                <option value="geral">Geral</option>
+                <option value="especifico">Específico</option>
+            </select>
+        </div>
+        <div class="input-container" id="esp-container">
+            <select name="para" id="para">
+                <option value="">Destinatário</option>
+                <option value="eps">Empresas de Segurança Privada</option>
+                <option value="sap">Sistemas de Auto Proteção</option>
+                <option value="centro">Centros de Formação</option>
+                <option value="psp">Profissionais de Segurança</option>
+            </select>
+        </div>
+    </div>
+    <div class="box-column">
+        <div class="input-container">
+            <textarea name="mensagem" id="mensagem" maxlength="500" placeholder="Mensagem" rows="4" cols="50"></textarea>
+        </div>
+    </div>
+    <input class="submit" type="submit" value="Enviar Comunicado">
+
+</form>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var tipoSelect = document.getElementById('tipo');
+        var acusadoContainer = document.getElementById('esp-container');
+
+        // Função para mostrar ou ocultar o campo acusado com base na seleção do tipo de denúncia
+        function toggleAcusado() {
+            if (tipoSelect.value === 'especifico') {
+                acusadoContainer.style.display = 'block';
+            } else {
+                acusadoContainer.style.display = 'none';
+            }
+        }
+
+        // Adicionar um ouvinte de eventos para detectar mudanças no tipo de denúncia
+        tipoSelect.addEventListener('change', toggleAcusado);
+
+        // Chamada inicial da função para garantir que o campo acusado seja exibido ou ocultado conforme necessário
+        toggleAcusado();
+    });
+</script>

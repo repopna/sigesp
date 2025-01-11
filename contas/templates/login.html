@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+{% if user.is_anonymous %}
+
+<div class="login">
+    <form class="form" method="post" autocomplete="off">
+        {% csrf_token %}
+
+        <p class="form-title">Área Reservada</p>
+        <div class="input-container">
+            <input placeholder="NIF / BI / NIP" type="text" name="username" style="text-transform: uppercase;">
+        </div>
+        <div class="input-container">
+            <input placeholder="Senha" type="password" name="password">
+        </div>
+        <p class="forgot-link">
+            <a href="{% url 'reset_password' %}">Recuperar senha</a>
+        </p>
+        {% if messages %}
+            <ul class="error">
+                {% for message in messages %}
+                    <li class="text-red">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <button class="submit" type="submit">
+            LOGIN
+        </button>
+        <p class="signup-link">
+            Não tem uma conta?
+            <a href="{% url 'signup' %}">Criar conta</a>
+        </p>
+    </form>
+</div>
+<div class="content">
+    <div class="conteudo">
+        <p class="form-title">SIGESP - Sistema de Gestão de Segurança Privada</p>
+        <p class="text">O <strong>Sistema de Gestão de Segurança Privada</strong> é uma plataforma criada para
+            dinamização do atendimento, gestão administrativa e automação de processos do Departamento de Segurança
+            Privada da <strong>Direcção de Segurança Pública e Operações</strong>. <br><br>A área de acesso reservado do
+            <strong>SIGESP</strong> permite o envio, recepção e solicitação de documentos entre as Empresas de Segurança
+            Privada, Centros de Formação,  Sistemas de Auto Proteção e os demais utentes do Departamento de Segurança Privada, simplificando a
+            interação com os especialistas permitindo maior fluidez nos processos, pedidos e demais serviços do
+            departamento.
+        </p>
+    </div>
+</div>
+{% else %}
+{% url 'index' as redirect_to %}
+<script>
+    window.location.href = "{{ redirect_to }}";
+</script>
+{% endif %}
+{% endblock %}

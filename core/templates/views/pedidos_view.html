@@ -1,0 +1,38 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Pedidos{% endblock %}
+
+{% block nav_pedidos %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'eps' or user.profile_type == 'sap' or user.profile_type == 'centro' %}
+    <div class="form">
+        <p class="form-title">Meus Pedidos</p>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id #</th>
+                    <th>Pedido</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pedido in pedidos %}
+                <tr>
+                    <td><a href="{% url 'pedido' pedido.id %}">{{ pedido.id }}</a></td>
+                    <td><a href="{% url 'pedido' pedido.id %}">{{ pedido.tipo_pedido }}</a></td>
+                    <td><a href="{% url 'pedido' pedido.id %}">{{ pedido.data_pedido }}</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+{% endblock %}

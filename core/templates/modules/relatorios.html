@@ -1,0 +1,23 @@
+<form class="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="tipo_rel" value="Relatórios Diários">
+    <p class="form-title">Relatórios Diários</p>
+    <div class="input-container">
+        <input type="file" name="ficheiro" required>
+    </div>
+    <button class="submit" type="submit">
+        Enviar
+    </button>
+</form>
+
+<form class="form" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="tipo_rel" value="Solicitação de Baixa">
+    <p class="form-title">Solicitação de Baixa</p>
+    <div class="input-container">
+        <input type="file" name="ficheiro" required>
+    </div>
+    <button class="submit" type="submit">
+        Enviar
+    </button>
+</form>

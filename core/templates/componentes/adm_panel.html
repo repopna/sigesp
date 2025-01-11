@@ -1,0 +1,173 @@
+{% load static %}
+<div class="main__cards">
+    <div class="card">
+        <i class="fa-solid fa-paper-plane"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">Pedidos Enviados</p>
+            <span class="font-bold text-title">{{ pedidos_enviados }}</span>
+        </div>
+    </div>
+    
+    <div class="card">
+        <i class="fa-solid fa-check"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">Pedidos Aceites</p>
+            <span class="font-bold text-title">{{ pedidos_aceites }}</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <i class="fa-solid fa-x"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">Pedidos Rejeitados</p>
+            <span class="font-bold text-title">{{ pedidos_rejeitados }}</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <i class="fa-solid fa-spinner"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">Pedidos em Processamento</p>
+            <span class="font-bold text-title">{{ pedidos_em_processamento }}</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <i class="fa-solid fa-building-shield"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">EPS</p>
+            <span class="font-bold text-title">{{ qty_eps }}</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <i class="fa-solid fa-shield-halved"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">SAP</p>
+            <span class="font-bold text-title">{{ qty_sap }}</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">CENTROS</p>
+            <span class="font-bold text-title">{{ qty_centros }}</span>
+        </div>
+    </div>
+
+    <div class="card">
+        <i class="fa-solid fa-user-shield"></i>
+        <div class="card_inner">
+            <p class="text-primary-p">PSP</p>
+            <span class="font-bold text-title">{{ qty_psp }}</span>
+        </div>
+    </div>
+</div>
+{% if user.tecnicodispo.seccao == 'director' %}
+    <div class="form2">
+        <p class="form-title">Usuários</p>
+        <canvas id="usuarios" width="500" height="300"></canvas>
+    </div>
+    <div class="form2">
+        <p class="form-title">Pedidos</p>
+        <canvas id="pedidos" width="500" height="300"></canvas>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="{% static 'js/Chart.min.js' %}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.get('{% url "dados_usuarios" %}', function(data) {
+                var ctx = $('#usuarios').get(0).getContext("2d");
+                new Chart(ctx, {
+                    type: 'bar',  
+                    data: {
+                        labels: data.labels,
+                        datasets: data.datasets.map((dataset, index) => ({
+                            label: dataset.label,
+                            data: dataset.data,
+                            backgroundColor: getColor(index),  
+                            borderColor: 'rgba(0, 0, 0, 0.1)',  
+                            borderWidth: 1
+                        }))
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true,
+                            }
+                        }
+                    }
+                });
+            }).fail(function() {
+                console.log("Error fetching data");
+            });
+            function getColor(index) {
+                const colors = [
+                    'rgba(54, 162, 235, 0.5)', // Azul Claro
+                    'rgba(255, 99, 132, 0.5)', // Rosa Claro
+                    'rgba(255, 159, 64, 0.5)', // Laranja Claro
+                    'rgba(75, 192, 192, 0.5)', // Verde Água Claro
+                    'rgba(153, 102, 255, 0.5)', // Roxo Claro
+                    'rgba(255, 205, 86, 0.5)'  // Amarelo Claro
+                ];
+                return colors[index % colors.length];
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.get('{% url "dados_pedido" %}', function(data) {
+                var ctx = $('#pedidos').get(0).getContext('2d');
+
+                // Função para obter cores diferentes
+                function getColor(index) {
+                    const colors = [
+                        'rgba(255, 99, 132, 0.6)', // Rosa
+                        'rgba(54, 162, 235, 0.6)', // Azul
+                        'rgba(255, 206, 86, 0.6)', // Amarelo
+                        'rgba(75, 192, 192, 0.6)', // Verde Água
+                        'rgba(153, 102, 255, 0.6)', // Roxo
+                        'rgba(255, 159, 64, 0.6)'  // Laranja
+                    ];
+                    return colors[index % colors.length];
+                }
+
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            label: 'Quantidade de Pedidos por Tipo',
+                            data: data.data,
+                            backgroundColor: data.labels.map((_, index) => getColor(index)), // Define cores diferentes para cada segmento
+                            borderColor: 'rgba(255, 255, 255, 0.7)', // Cor da borda das seções
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                position: 'top'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(tooltipItem) {
+                                        return tooltipItem.label + ': ' + tooltipItem.raw + ' pedidos';
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            }).fail(function() {
+                console.log("Error fetching data");
+            });
+        });
+    </script>
+{% endif %}

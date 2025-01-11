@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Verificar Carteira de Segurança{% endblock %}
+
+{% block content %}
+
+<dialog id="modalDetalhesDenuncia">
+    <h2>Carteira de Profissional de Segurança</h2>
+    <div class="box column">
+        <br>
+        <div class="group-text">
+            <h3 class="text-title">Nome:</h3>
+            <p class="p-text">{{ carteira.nome }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">NIF:</h3>
+            <p class="p-text">{{ carteira.bi }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Categoria:</h3>
+            <p class="p-text">{{ carteira.categoria }}</p>
+        </div>
+        <div class="group-text">
+            <h3 class="text-title">Validade:</h3>
+            <p class="p-text">{{ carteira.dt_validade }}</p>
+        </div> 
+        <br>  
+    </div>
+    <button class="submit" id="fecharModal" style="border: 0; border-radius: 0;">Fechar</button>
+</dialog>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var modal = document.getElementById('modalDetalhesDenuncia');
+        var closeButton = document.getElementById('fecharModal');
+
+        
+        modal.showModal();
+
+        closeButton.addEventListener('click', function() {
+            modal.close();
+        });
+    });
+</script>
+{% endblock %}

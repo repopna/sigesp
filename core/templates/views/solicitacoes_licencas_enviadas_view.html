@@ -1,0 +1,18 @@
+{% extends 'dash.html' %}
+{% load static %}
+
+{% block title %}Solicitações de Carteiras Enviadas{% endblock %}
+
+{% block nav_slie %}active_menu_link{% endblock %}
+
+{% block container %}
+
+{% include 'componentes/toast.html' %}
+
+{% if user.profile_type == 'tecdsp' %}
+    {% include 'modules/emissoes_licencas_psp.html' %}
+{% else %}
+    {% include 'componentes/protect.html' %}
+{% endif %}
+
+{% endblock %}

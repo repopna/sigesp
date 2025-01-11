@@ -1,0 +1,55 @@
+<div class="form2" style="width: fit-content;">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="box column">
+            <p class="form-title">Formação</p>
+            <div class="input-container">
+                <p>Lista de canditados:</p>
+                <input type="file" name="lista" required>
+            </div>
+            <div class="box line">
+                <div class="input-container">
+                    <p>Data de abertura:</p>
+                    <input type="date" name="data_inicio" required>
+                </div>
+                <div class="input-container">
+                    <p>Data de encerramento:</p>
+                    <input type="date" name="data_fim" required>
+                </div>
+            </div>
+            <button class="submit" type="submit">
+                Enviar
+            </button>
+        </div>
+        
+    </form>
+</div>
+<div class="form2">
+    <div class="box column">
+        <p class="form-title">Formações Registradas</p>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id #</th>
+                    <th>Lista</th>
+                    <th>Data de Abertura</th>
+                    <th>Data de Encerramento</th>
+                    <th>Data de Registo</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for formacao in formacoes %}
+                <tr>
+                    <td>{{ formacao.id }}</td>
+                    <td><a href="{{ formacao.lista.url }}" target="_blank"><i class="fa-solid fa-file"></i></a></td>
+                    <td>{{ formacao.data_abertura }}</td>
+                    <td>{{ formacao.data_encerramento }}</td>
+                    <td>{{ formacao.data_cadastro }}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
