@@ -1,0 +1,11 @@
+<svg id="DESIGN" xmlns="http://www.w3.org/2000/svg" width="1004" height="108" viewBox="0 0 1004 108">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #000e57;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="FAIXA_AZUL" data-name="FAIXA AZUL" class="cls-1" d="M0,38.188H831l41-38.5h133L1004,108,0,109V38.188Z"/>
+</svg>
