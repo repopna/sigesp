@@ -7,11 +7,9 @@ __pycache__/
 db.sqlite3
 media
 migrations
-.env
 /static
 
-# Environments 
-.env 
+# Environments
 .venv 
 env/ 
 venv/ 
