@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'sigesp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
+'''DATABASES = {
     'default': {
         'ENGINE': env('ENGINE'),
         'NAME': env('NAME'),
@@ -84,6 +84,17 @@ DATABASES = {
         'PASSWORD': env('PASSWORD'),
         'HOST': env('HOST'),
         'PORT': env('PORT'),
+    }
+}'''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bd_sigesp',
+        'USER': 'sigesp_user',
+        'PASSWORD': '!sigespxkirene@2025',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
