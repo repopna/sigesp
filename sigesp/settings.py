@@ -92,7 +92,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'bd_sigesp',
         'USER': 'sigesp_user',
-        'PASSWORD': '!sigespxkirene@2025',
+        'PASSWORD': env('PASSWORD'),
         'HOST': 'localhost',
         'PORT': '5432',
     }
