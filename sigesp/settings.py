@@ -18,7 +18,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '0.0.0.0', '197.149.151.146', '10.110.14.134']
+ALLOWED_HOSTS = ['localhost', '0.0.0.0', '10.110.1.230']
 
 
 # Application definition
